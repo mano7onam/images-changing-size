@@ -146,7 +146,6 @@ def process_image(image_path):
         res_image.save(res_name, dpi=(dpi, dpi))
 
 
-print('Named explicitly:')
 for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*.png'):
     process_image(image_path)
 
