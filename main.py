@@ -140,7 +140,7 @@ def process_image(image_path):
         # mm, mmm = calculate_stat(resized_image)
         res_image.paste(resized_image, (0, (h - w) // 2))
         # continue_background(res_image, mm, mmm)
-        continue_background_reverse(res_image)
+        # continue_background_reverse(res_image)
         res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
         print(res_name)
         res_image.save(res_name, dpi=(dpi, dpi))
