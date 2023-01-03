@@ -1,10 +1,11 @@
-import os
 import glob
-import random
-from collections import Counter
+import os
 
 from PIL import Image
+
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
+OUTPUT_DIR = os.getcwd()
+
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 
 def process_image(image_path):
@@ -12,25 +13,21 @@ def process_image(image_path):
     img_name = os.path.basename(image_path).split('.png')[0]
 
     for size in SIZES:
-        x = img.width
+        w = img.width
+        h = img.height
         ww = size[0]
         hh = size[1]
-        w = x - x % ww
-        h = (w // ww) * hh
+        if w % ww != 0 or h % hh != 0:
+            continue
         dpi = w // ww
         if ww == 83:
             dpi *= 10
-        bg_color = img.getpixel((0, 0))
-        print(bg_color)
-        res_image = Image.new("RGB", (w, h), bg_color)
-        resized_image = img.resize((w, w))
-        # mm, mmm = calculate_stat(resized_image)
-        res_image.paste(resized_image, (0, (h - w) // 2))
-        # continue_background(res_image, mm, mmm)
-        # continue_background_reverse(res_image)
-        res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
-        print(res_name)
-        res_image.save(res_name, dpi=(dpi, dpi))
+        res_name = f'{w}_{h}_{dpi}_{img_name}.jpg'
+        res_dir_name = f'{ww}x{hh}'
+        res_dir_path = os.path.join(OUTPUT_DIR, res_dir_name)
+        if not os.path.isdir(res_dir_path):
+            os.makedirs(res_dir_path)
+        img.save(os.path.join(res_dir_path, res_name), dpi=(dpi, dpi))
 
 
 for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*.png'):
