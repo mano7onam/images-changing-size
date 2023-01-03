@@ -60,6 +60,20 @@ def continue_background(img, mm, mmm):
             img.putpixel((i, j_start + dj), img.getpixel((i, j_start - dj - 1)))
 
 
+def continue_background_reverse(img):
+    w = img.width
+    h = img.height
+    j_start = (h - w) // 2 - 1
+    for dj in range(0, (h - w) // 2):
+        for i in range(0, w):
+            img.putpixel((i, j_start - dj), img.getpixel((i, j_start + dj + 1)))
+
+    j_start = (h - w) // 2 + w
+    for dj in range(0, (h - w) // 2):
+        for i in range(0, w):
+            img.putpixel((i, j_start + dj), img.getpixel((i, j_start - dj - 1)))
+
+
 def calculate_stat(img):
     mm = {}
     mmm = {}
@@ -123,9 +137,10 @@ def process_image(image_path):
         print(bg_color)
         res_image = Image.new("RGB", (w, h), bg_color)
         resized_image = img.resize((w, w))
-        mm, mmm = calculate_stat(resized_image)
+        # mm, mmm = calculate_stat(resized_image)
         res_image.paste(resized_image, (0, (h - w) // 2))
-        continue_background(res_image, mm, mmm)
+        # continue_background(res_image, mm, mmm)
+        continue_background_reverse(res_image)
         res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
         print(res_name)
         res_image.save(res_name, dpi=(dpi, dpi))
