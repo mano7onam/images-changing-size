@@ -55,8 +55,10 @@ def continue_background(img, mm):
 
 def calculate_stat(img):
     mm = {}
+    w = img.width
+    h = img.height
     for i in range(0, 100):
-        for j in range(0, 100):
+        for j in range(0, h):
             vcol = get_color_value(img.getpixel((i, j)))
             for di in range(-1, 2):
                 for dj in range(-1, 2):
@@ -70,6 +72,27 @@ def calculate_stat(img):
                     if vcol not in mm:
                         mm[vcol] = []
                     mm[vcol].append(get_color_value(ccol))
+    for j in range(0, 100):
+        for i in range(0, w):
+            vcol = get_color_value(img.getpixel((i, j)))
+            for di in range(-1, 2):
+                for dj in range(-1, 2):
+                    if di == 0 and dj == 0:
+                        continue
+                    ci = i + di
+                    cj = j + dj
+                    if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
+                        continue
+                    ccol = img.getpixel((ci, cj))
+                    if vcol not in mm:
+                        mm[vcol] = []
+                    mm[vcol].append(get_color_value(ccol))
+    for (key, val) in mm.items():
+        newl = []
+        for el in val:
+            if el in mm:
+                newl.append(el)
+        mm[key] = newl
     return mm
 
 
