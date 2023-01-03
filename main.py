@@ -6,6 +6,9 @@ from collections import Counter
 from PIL import Image
 
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
+OUTPUT_DIR = os.path.join(os.getcwd(), "output")
+if not os.path.isdir(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 DPI = (50, 50)
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 
@@ -142,8 +145,9 @@ def process_image(image_path):
         # continue_background(res_image, mm, mmm)
         # continue_background_reverse(res_image)
         res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
-        print(res_name)
-        res_image.save(res_name, dpi=(dpi, dpi))
+        res_path = os.path.join(OUTPUT_DIR, res_name)
+        print(res_path)
+        res_image.save(res_path, dpi=(dpi, dpi))
 
 
 for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*.png'):
