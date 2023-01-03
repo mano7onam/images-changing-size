@@ -1,5 +1,7 @@
 import os
 import glob
+import random
+
 from PIL import Image
 
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
@@ -11,15 +13,39 @@ def get_color_value(color):
     return color[0] + color[1] * 256 + color[2] * 256 * 256
 
 
-def continue_background(img):
-    REPEAT_PIXELS = 30
+def get_value_color(value):
+    r = value % 256
+    value //= 256
+    g = value % 256
+    value //= 256
+    b = value % 256
+    return (r, g, b)
 
+
+def continue_background(img, mm):
     w = img.width
     h = img.height
     j_start = (h - w) // 2 - 1
-    for dj in range(0, j_start + 1):
+    for j in range(j_start, -1, -1):
         for i in range(0, w):
-            img.putpixel((i, j_start - dj), img.getpixel((i, j_start + dj + 1)))
+            colors = []
+            for di in range(-1, 1):
+                for dj in range(0, 2):
+                    if di == 0 and dj == 0:
+                        continue
+                    ci = i + di
+                    cj = j + dj
+                    if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
+                        continue
+                    col = img.getpixel((ci, cj))
+                    print(col)
+                    col = get_color_value(col)
+                    print(col)
+                    colors.extend(mm[col])
+
+            ind = random.randint(0, len(colors) - 1)
+            col = colors[ind]
+            img.putpixel((i, j), get_value_color(col))
 
     j_start = (h - w) // 2 + w
     for dj in range(0, (h - w) // 2):
@@ -34,14 +60,16 @@ def calculate_stat(img):
             vcol = get_color_value(img.getpixel((i, j)))
             for di in range(-1, 2):
                 for dj in range(-1, 2):
+                    if di == 0 and dj == 0:
+                        continue
                     ci = i + di
                     cj = j + dj
                     if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
                         continue
                     ccol = img.getpixel((ci, cj))
                     if vcol not in mm:
-                        mm[vcol] = set()
-                    mm[vcol].add(get_color_value(ccol))
+                        mm[vcol] = []
+                    mm[vcol].append(get_color_value(ccol))
     return mm
 
 
