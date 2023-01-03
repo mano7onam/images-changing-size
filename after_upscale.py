@@ -4,7 +4,10 @@ import os
 from PIL import Image
 
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
-OUTPUT_DIR = os.getcwd()
+DIR_WITH_IMAGES = os.path.join(os.getcwd(), "output")
+OUTPUT_DIR = os.path.join(os.getcwd(), "output_new")
+INPUT_FORMAT = '.png'
+OUTPUT_FORMAT = '.png'
 
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 

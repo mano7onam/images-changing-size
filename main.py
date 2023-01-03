@@ -11,6 +11,8 @@ if not os.path.isdir(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 DPI = (50, 50)
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
+INPUT_FORMAT = '.png'
+OUTPUT_FORMAT = '.png'
 
 
 def get_color_value(color):
@@ -125,7 +127,7 @@ def calculate_stat(img):
 
 def process_image(image_path):
     img = Image.open(image_path)
-    img_name = os.path.basename(image_path).split('.png')[0]
+    img_name = os.path.basename(image_path).split(INPUT_FORMAT)[0]
 
     for size in SIZES:
         x = img.width
@@ -144,13 +146,13 @@ def process_image(image_path):
         res_image.paste(resized_image, (0, (h - w) // 2))
         # continue_background(res_image, mm, mmm)
         # continue_background_reverse(res_image)
-        res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
+        res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}{OUTPUT_FORMAT}'
         res_path = os.path.join(OUTPUT_DIR, res_name)
         print(res_path)
         res_image.save(res_path, dpi=(dpi, dpi))
 
 
-for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*.png'):
+for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*{INPUT_FORMAT}'):
     process_image(image_path)
 
 
