@@ -27,6 +27,7 @@ def continue_background(img, mm):
     h = img.height
     j_start = (h - w) // 2 - 1
     for j in range(j_start, -1, -1):
+        print(j)
         for i in range(0, w):
             colors = []
             for di in range(-1, 1):
@@ -38,9 +39,7 @@ def continue_background(img, mm):
                     if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
                         continue
                     col = img.getpixel((ci, cj))
-                    print(col)
                     col = get_color_value(col)
-                    print(col)
                     colors.extend(mm[col])
 
             ind = random.randint(0, len(colors) - 1)
