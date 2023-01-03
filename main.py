@@ -26,22 +26,20 @@ def continue_background(img, mm):
     w = img.width
     h = img.height
     j_start = (h - w) // 2 - 1
+    dds = ((-1, 0), (-1, 1), (0, 1))
     for j in range(j_start, -1, -1):
         print(j)
         for i in range(0, w):
-            colors = []
-            for di in range(-1, 1):
-                for dj in range(0, 2):
-                    if di == 0 and dj == 0:
-                        continue
-                    ci = i + di
-                    cj = j + dj
-                    if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
-                        continue
-                    col = img.getpixel((ci, cj))
-                    col = get_color_value(col)
-                    colors.extend(mm[col])
-
+            dind = random.randint(0, 2)
+            cur_d = dds[dind]
+            ci = i + cur_d[0]
+            cj = j + cur_d[1]
+            if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
+                ci = i + dds[2][0]
+                cj = j + dds[2][1]
+            col = img.getpixel((ci, cj))
+            col = get_color_value(col)
+            colors = mm[col]
             ind = random.randint(0, len(colors) - 1)
             col = colors[ind]
             img.putpixel((i, j), get_value_color(col))
@@ -56,7 +54,7 @@ def calculate_stat(img):
     mm = {}
     w = img.width
     h = img.height
-    for i in range(0, 100):
+    for i in range(0, 10):
         for j in range(0, h):
             vcol = get_color_value(img.getpixel((i, j)))
             for di in range(-1, 2):
@@ -71,7 +69,7 @@ def calculate_stat(img):
                     if vcol not in mm:
                         mm[vcol] = []
                     mm[vcol].append(get_color_value(ccol))
-    for j in range(0, 100):
+    for j in range(0, 10):
         for i in range(0, w):
             vcol = get_color_value(img.getpixel((i, j)))
             for di in range(-1, 2):
@@ -97,7 +95,6 @@ def calculate_stat(img):
 
 def process_image(image_path):
     img = Image.open(image_path)
-    mm = calculate_stat(img)
     img_name = os.path.basename(image_path).split('.png')[0]
 
     for size in SIZES:
@@ -113,6 +110,7 @@ def process_image(image_path):
         print(bg_color)
         res_image = Image.new("RGB", (w, h), bg_color)
         resized_image = img.resize((w, w))
+        mm = calculate_stat(resized_image)
         res_image.paste(resized_image, (0, (h - w) // 2))
         continue_background(res_image, mm)
         res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
