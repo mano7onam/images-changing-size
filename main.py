@@ -1,6 +1,7 @@
 import os
 import glob
 import random
+from collections import Counter
 
 from PIL import Image
 
@@ -22,26 +23,35 @@ def get_value_color(value):
     return (r, g, b)
 
 
-def continue_background(img, mm):
+def continue_background(img, mm, mmm):
     w = img.width
     h = img.height
     j_start = (h - w) // 2 - 1
-    dds = ((-1, 0), (-1, 1), (0, 1))
+    RAD = 5
+    dds = [(0, 1)]
+    for di in range(-RAD, 0):
+        dds.append((di, 0))
+    for di in range(-RAD, RAD):
+        for dj in range(1, RAD):
+            if di == 0 and dj == 1:
+                continue
+            dds.append((di, dj))
     for j in range(j_start, -1, -1):
         print(j)
         for i in range(0, w):
-            dind = random.randint(0, 2)
+            dind = random.randint(0, len(dds) - 1)
             cur_d = dds[dind]
             ci = i + cur_d[0]
             cj = j + cur_d[1]
             if ci < 0 or ci >= img.width or cj < 0 or cj >= img.height:
-                ci = i + dds[2][0]
-                cj = j + dds[2][1]
+                ci = i + dds[0][0]
+                cj = j + dds[0][1]
             col = img.getpixel((ci, cj))
             col = get_color_value(col)
-            colors = mm[col]
-            ind = random.randint(0, len(colors) - 1)
-            col = colors[ind]
+            # colors = mm[col]
+            # ind = random.randint(0, len(colors) - 1)
+            # col = colors[ind]
+            col = mmm[col]
             img.putpixel((i, j), get_value_color(col))
 
     j_start = (h - w) // 2 + w
@@ -52,6 +62,7 @@ def continue_background(img, mm):
 
 def calculate_stat(img):
     mm = {}
+    mmm = {}
     w = img.width
     h = img.height
     for i in range(0, 10):
@@ -89,8 +100,10 @@ def calculate_stat(img):
         for el in val:
             if el in mm:
                 newl.append(el)
+        counter = Counter(newl)
         mm[key] = newl
-    return mm
+        mmm[key] = counter.most_common(1)[0][0]
+    return mm, mmm
 
 
 def process_image(image_path):
@@ -110,9 +123,9 @@ def process_image(image_path):
         print(bg_color)
         res_image = Image.new("RGB", (w, h), bg_color)
         resized_image = img.resize((w, w))
-        mm = calculate_stat(resized_image)
+        mm, mmm = calculate_stat(resized_image)
         res_image.paste(resized_image, (0, (h - w) // 2))
-        continue_background(res_image, mm)
+        continue_background(res_image, mm, mmm)
         res_name = f'{ww}_{hh}_{w}_{h}_{dpi}_{img_name}.jpg'
         print(res_name)
         res_image.save(res_name, dpi=(dpi, dpi))
