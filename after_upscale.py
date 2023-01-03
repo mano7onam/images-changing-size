@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 
 from PIL import Image
 
@@ -33,6 +34,18 @@ def process_image(image_path):
         img.save(os.path.join(res_dir_path, res_name), dpi=(dpi, dpi))
 
 
+def zip_directories():
+    for size in SIZES:
+        ww = size[0]
+        hh = size[1]
+        res_dir_name = f'{ww}x{hh}'
+        res_dir_path = os.path.join(OUTPUT_DIR, res_dir_name)
+        zip_path = os.path.join(OUTPUT_DIR, res_dir_name)
+        shutil.make_archive(zip_path, 'zip', res_dir_path)
+
+
 for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*{INPUT_FORMAT}'):
     print(image_path)
     process_image(image_path)
+
+zip_directories()
