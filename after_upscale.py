@@ -25,9 +25,7 @@ def process_image(image_path):
         ww = size[0]
         hh = size[1]
         cur_rat = ww / hh
-        if abs(rat - cur_rat) > 0.02:
-            continue
-        if w % ww != 0 or h % hh != 0:
+        if abs(rat - cur_rat) > 0.005:
             continue
         dpi = w // ww
         if ww == 83:
