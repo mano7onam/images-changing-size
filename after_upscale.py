@@ -28,6 +28,10 @@ def process_image(image_path):
         if abs(rat - cur_rat) > 0.005:
             continue
         dpi = w // ww
+        if w % ww != 0 or h % hh != 0:
+            new_w = dpi * ww
+            new_h = dpi * hh
+            img = img.resize((new_w, new_h))
         if ww == 83:
             dpi *= 10
         res_name = f'{w}_{h}_{dpi}_{img_name}{OUTPUT_FORMAT}'
