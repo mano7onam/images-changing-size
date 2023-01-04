@@ -11,7 +11,6 @@ DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
 OUTPUT_DIR = os.path.join(os.getcwd(), "output")
 if not os.path.isdir(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
-DPI = (50, 50)
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 INPUT_FORMAT = '.png'
 OUTPUT_FORMAT = '.jpg'
