@@ -7,7 +7,7 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = 933120000
 
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
-DIR_WITH_IMAGES = os.path.join(os.getcwd(), "output")
+DIR_WITH_IMAGES = '/Users/andrey.matveev/Downloads/angel'
 OUTPUT_DIR = os.path.join(os.getcwd(), "output_new")
 INPUT_FORMAT = '.png'
 OUTPUT_FORMAT = '.jpg'
@@ -43,7 +43,8 @@ def zip_directories():
         res_dir_name = f'{ww}x{hh}'
         res_dir_path = os.path.join(OUTPUT_DIR, res_dir_name)
         zip_path = os.path.join(OUTPUT_DIR, res_dir_name)
-        shutil.make_archive(zip_path, 'zip', res_dir_path)
+        if os.path.isdir(zip_path):
+            shutil.make_archive(zip_path, 'zip', res_dir_path)
 
 
 for image_path in glob.glob(f'{DIR_WITH_IMAGES}/*{INPUT_FORMAT}'):
