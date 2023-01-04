@@ -5,6 +5,8 @@ from collections import Counter
 
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = 933120000
+
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
 OUTPUT_DIR = os.path.join(os.getcwd(), "output")
 if not os.path.isdir(OUTPUT_DIR):

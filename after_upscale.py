@@ -4,6 +4,8 @@ import shutil
 
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = 933120000
+
 DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
 DIR_WITH_IMAGES = os.path.join(os.getcwd(), "output")
 OUTPUT_DIR = os.path.join(os.getcwd(), "output_new")
