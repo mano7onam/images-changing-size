@@ -17,12 +17,16 @@ SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 def process_image(image_path):
     img = Image.open(image_path)
     img_name = os.path.basename(image_path).split(INPUT_FORMAT)[0]
+    w = img.width
+    h = img.height
+    rat = w / h
 
     for size in SIZES:
-        w = img.width
-        h = img.height
         ww = size[0]
         hh = size[1]
+        cur_rat = ww / hh
+        if abs(rat - cur_rat) > 0.02:
+            continue
         if w % ww != 0 or h % hh != 0:
             continue
         dpi = w // ww
