@@ -13,6 +13,7 @@ OUTPUT_FORMAT = '.jpg'
 
 SIZES = ((8, 10), (11, 14), (16, 20), (83, 117))
 
+
 def process_image(image_path):
     img = Image.open(image_path)
     img_name = os.path.basename(image_path).split(INPUT_FORMAT)[0]
