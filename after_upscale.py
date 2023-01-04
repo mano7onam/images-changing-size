@@ -32,6 +32,7 @@ def process_image(image_path):
         res_dir_path = os.path.join(OUTPUT_DIR, res_dir_name)
         if not os.path.isdir(res_dir_path):
             os.makedirs(res_dir_path)
+        img = img.convert('RGB')
         img.save(os.path.join(res_dir_path, res_name), dpi=(dpi, dpi))
 
 
