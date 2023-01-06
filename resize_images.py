@@ -7,8 +7,10 @@ Image.MAX_IMAGE_PIXELS = 933120000
 DESIRED_SIZE_W = 512
 DESIRED_SIZE_H = 512
 
-DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/MIDJORNEY_IMAGES'
-OUTPUT_DIR = os.path.join(os.getcwd(), "output")
+DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR'
+OUTPUT_DIR = '/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR_RESIZED'
+if not os.path.isdir(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
 INPUT_FORMAT = '.png'
 OUTPUT_FORMAT = '.jpg'
