@@ -7,7 +7,7 @@ from PIL import Image, PngImagePlugin
 url = "http://127.0.0.1:7860"
 
 payload = {
-    "prompt": "puppy dog",
+    "prompt": "well sharpened long pencil with elastic at the end on simple background, watercolour style, art by midjourney",
     "steps": 20
 }
 
@@ -25,4 +25,4 @@ for i in r['images']:
 
     pnginfo = PngImagePlugin.PngInfo()
     pnginfo.add_text("parameters", response2.json().get("info"))
-    image.save('output.png', pnginfo=pnginfo)
+    image.save('generated.png', pnginfo=pnginfo)
