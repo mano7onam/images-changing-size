@@ -1,20 +1,16 @@
 {
   "files_with_prompts":
   [
-    "",
-    "",
-    "",
-    "",
-    ""
+    "glob::::/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR_RESIZED_512_JPEG_BLIP_DEEPBORU/*.txt"
   ],
   "models":
   [
-    "",
-    "",
-    ""
+    "hasdx_hasedsdx.ckpt [d2ef38d0]",
+    "sd-v1-5-inpainting.ckpt [3e16efc8]",
+    "generalPurposeModel_model.ckpt [f32626be]"
   ],
   "negative_prompts":
   [
-    ""
+    "prompt::::(deformed), (poorly drawn), bad art, poor quality, cropped, low quality"
   ]
 }

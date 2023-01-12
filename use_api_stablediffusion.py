@@ -10,13 +10,18 @@ URL = "http://127.0.0.1:7860"
 
 def process_files_get_prompts(files_or_globs):
     all_files = []
+    res_all_prompts = []
     for file in files_or_globs:
         if file.startswith('glob::::'):
             glob_str = file.split('::::')[1]
             cur_files = glob.glob(glob_str)
             all_files.extend(cur_files)
+        elif file.startswith('prompt::::'):
+            cur_prompt = file.split('::::')[1]
+            res_all_prompts.append(cur_prompt)
+        else:
+            all_files.append(file)
 
-    res_all_prompts = []
     for file in all_files:
         with open(file, 'r') as f:
             for line in f:
@@ -25,13 +30,15 @@ def process_files_get_prompts(files_or_globs):
 
 
 def process_request(prompt, negative_prompt):
+    print(prompt)
+    print(negative_prompt)
     payload = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
         "steps": 20,
         "seed": -1,
         "width": 512,
-        "height": 768,
+        "height": 512,
         "cfg_scale": 7,
     }
 
@@ -63,6 +70,7 @@ def start():
         print(all_negative_prompts)
 
     for model in all_models:
+        print(model)
         option_payload = {
             "sd_model_checkpoint": model
         }
@@ -70,8 +78,10 @@ def start():
         print(response.status_code)
         if response.status_code != 200:
             continue
+        print(all_prompts)
         for prompt in all_prompts:
             for negative_prompt in all_negative_prompts:
+                print(all_negative_prompts)
                 process_request(prompt, negative_prompt)
 
 
