@@ -5,19 +5,19 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = 933120000
 
 DESIRED_SIZE_W = 512
-DESIRED_SIZE_H = 512
+DESIRED_SIZE_H = 768
 
-DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR'
-OUTPUT_DIR = '/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR_RESIZED_512_JPEG'
+DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/IMGS/NEWD'
+OUTPUT_DIR = '/Users/andrey.matveev/aspire/IMGS/NEWD_RSZ'
 if not os.path.isdir(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-INPUT_FORMAT = ['.png', '.jpg']
+INPUT_FORMAT = ['.png', '.jpg', '.jpeg']
 OUTPUT_FORMAT = '.jpeg'
 
 
 def process_image(image_path, input_format):
-    img = Image.open(image_path)
+    img = Image.open(image_path).convert('RGB')
     res_image = img.resize((DESIRED_SIZE_W, DESIRED_SIZE_H))
     img_name = os.path.basename(image_path).split(input_format)[0]
     res_name = f'{DESIRED_SIZE_W}x{DESIRED_SIZE_H}_{img_name}{OUTPUT_FORMAT}'

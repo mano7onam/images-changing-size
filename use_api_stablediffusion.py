@@ -7,8 +7,13 @@ from PIL import Image, PngImagePlugin
 url = "http://127.0.0.1:7860"
 
 payload = {
-    "prompt": "well sharpened long pencil with elastic at the end on simple background, watercolour style, art by midjourney",
-    "steps": 20
+    "prompt": "beautiful, slim body, red lips, naked blonde girl, stockings, ((RAW, analog style)), {wide angle, extremely detailed photo of a *subject*}, ((film grain, skin details, high detailed skin texture, 8k hdr, dslr))",
+    "negative_prompt": "((((realistic, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime)))), cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck",
+    "steps": 20,
+    "seed": -1,
+    "width": 512,
+    "height": 768,
+    "cfg_scale": 7,
 }
 
 response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
