@@ -1,5 +1,7 @@
 import glob
 import json
+import os
+
 import requests
 import io
 import base64
@@ -29,7 +31,7 @@ def process_files_get_prompts(files_or_globs):
     return res_all_prompts
 
 
-def process_request(prompt, negative_prompt):
+def process_request(model_dir_name, prompt, negative_prompt):
     print(prompt)
     print(negative_prompt)
     payload = {
@@ -56,7 +58,12 @@ def process_request(prompt, negative_prompt):
 
         pnginfo = PngImagePlugin.PngInfo()
         pnginfo.add_text("parameters", response2.json().get("info"))
-        image.save('generated.png', pnginfo=pnginfo)
+        start_prompt = prompt[:30]
+        hash_prompt = hash(prompt)
+        hash_negative_prompt = hash(negative_prompt)
+        base_img_path = f'{start_prompt}_{hash_prompt}_{hash_negative_prompt}.png'
+        res_img_name = os.path.join(model_dir_name, base_img_path)
+        image.save(res_img_name, pnginfo=pnginfo)
 
 
 def start():
@@ -69,8 +76,15 @@ def start():
         print(all_prompts)
         print(all_negative_prompts)
 
+    if len(all_negative_prompts) == 0:
+        all_negative_prompts.append('')
+
     for model in all_models:
         print(model)
+        model_dir_name = model.replace(' ', '_')
+        model_dir_name = model_dir_name.replace('.', '_')
+        if not os.path.isdir(model_dir_name):
+            os.makedirs(model_dir_name)
         option_payload = {
             "sd_model_checkpoint": model
         }
@@ -82,7 +96,7 @@ def start():
         for prompt in all_prompts:
             for negative_prompt in all_negative_prompts:
                 print(all_negative_prompts)
-                process_request(prompt, negative_prompt)
+                process_request(model_dir_name, prompt, negative_prompt)
 
 
 start()
