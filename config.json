@@ -25,5 +25,6 @@
     "Disco_Diffusion_Style_SD_Model.ckpt [9ba6dd55]",
     "sd-v1-5-inpainting.ckpt [3e16efc8]",
     "mdjrny-pntrt.ckpt [83295fd6]"
-  ]
+  ],
+  "repetitions": 2
 }

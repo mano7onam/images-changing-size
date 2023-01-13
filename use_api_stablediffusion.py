@@ -27,13 +27,14 @@ def process_files_get_prompts(files_or_globs):
     for file in all_files:
         with open(file, 'r') as f:
             for line in f:
-                res_all_prompts.append(line)
+                to_add = line
+                if line.endswith('\n'):
+                    to_add = line[:-1]
+                res_all_prompts.append(to_add)
     return res_all_prompts
 
 
-def process_request(model_dir_name, prompt, negative_prompt):
-    print(prompt)
-    print(negative_prompt)
+def process_one_request(iteration, model_dir_name, prompt, negative_prompt):
     payload = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
@@ -41,7 +42,7 @@ def process_request(model_dir_name, prompt, negative_prompt):
         "seed": -1,
         "width": 512,
         "height": 768,
-        "cfg_scale": 7,
+        "cfg_scale": 7
     }
 
     response = requests.post(url=f'{URL}/sdapi/v1/txt2img', json=payload)
@@ -61,9 +62,15 @@ def process_request(model_dir_name, prompt, negative_prompt):
         start_prompt = prompt[:30]
         hash_prompt = hash(prompt)
         hash_negative_prompt = hash(negative_prompt)
-        base_img_path = f'{start_prompt}_{hash_prompt}_{hash_negative_prompt}.png'
+        base_img_path = f'{start_prompt}_{hash_prompt}_{hash_negative_prompt}_{iteration}.png'
         res_img_name = os.path.join(model_dir_name, base_img_path)
         image.save(res_img_name, pnginfo=pnginfo)
+
+
+def process_requests(model_dir_name, prompt, negative_prompt, repetitions):
+    for i in range(0, repetitions):
+        print(i)
+        process_one_request(i, model_dir_name, prompt, negative_prompt)
 
 
 def start():
@@ -72,6 +79,7 @@ def start():
         all_models = obj['models']
         all_prompts = process_files_get_prompts(obj['files_with_prompts'])
         all_negative_prompts = process_files_get_prompts(obj['negative_prompts'])
+        repetitions = obj['repetitions']
         print(all_models)
         print(all_prompts)
         print(all_negative_prompts)
@@ -95,8 +103,9 @@ def start():
         print(all_prompts)
         for prompt in all_prompts:
             for negative_prompt in all_negative_prompts:
-                print(all_negative_prompts)
-                process_request(model_dir_name, prompt, negative_prompt)
+                print(prompt)
+                print(negative_prompt)
+                process_requests(model_dir_name, prompt, negative_prompt, repetitions)
 
 
 start()
