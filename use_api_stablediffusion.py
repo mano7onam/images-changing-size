@@ -40,7 +40,7 @@ def process_request(model_dir_name, prompt, negative_prompt):
         "steps": 20,
         "seed": -1,
         "width": 512,
-        "height": 512,
+        "height": 768,
         "cfg_scale": 7,
     }
 

@@ -1,16 +1,29 @@
 {
   "files_with_prompts":
   [
-    "glob::::/Users/andrey.matveev/aspire/IMGS/WATERCOLOUR_RESIZED_512_JPEG_BLIP_DEEPBORU/*.txt"
-  ],
-  "models":
-  [
-    "hasdx_hasedsdx.ckpt [d2ef38d0]",
-    "sd-v1-5-inpainting.ckpt [3e16efc8]",
-    "generalPurposeModel_model.ckpt [f32626be]"
+    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/prompts.txt"
   ],
   "negative_prompts":
   [
-    "prompt::::(deformed), (poorly drawn), bad art, poor quality, cropped, low quality"
+    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/neg-prompts.txt"
+  ],
+  "models":
+  [
+    "hassanblend1512And_hassanblend1512.ckpt [49686d33]",
+    "hasdx_hasedsdx.ckpt [d2ef38d0]",
+    "realeldenapocalypse_realeldenapocalypse.ckpt [61a1d4a8]",
+    "hAs3DKX11_3dkx11.ckpt [a73b3094]",
+    "kaelvinsmixhc_alpha021.ckpt [22577568]",
+    "wounddedMix_wounddedMix.ckpt [80d84c30]",
+    "rachelWalkerStyle_v1.ckpt [e35930da]",
+    "f222.ckpt [44bf0551]",
+    "YukisMix1.ckpt [18ae93e5]",
+    "samdoesartsUltmerge_v1.ckpt [8687d7a5]",
+    "sxdBerrymixMerge_10.ckpt [e4e0c35b]",
+    "generalPurposeModel_model.ckpt [f32626be]",
+    "Mdjrny-pprct_step_7000.ckpt [c5943e55]",
+    "Disco_Diffusion_Style_SD_Model.ckpt [9ba6dd55]",
+    "sd-v1-5-inpainting.ckpt [3e16efc8]",
+    "mdjrny-pntrt.ckpt [83295fd6]"
   ]
 }
