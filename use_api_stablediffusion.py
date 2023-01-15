@@ -62,6 +62,7 @@ def process_one_request(iteration, model_dir_name, prompt, negative_prompt):
         start_prompt = prompt[:30]
         hash_prompt = hash(prompt)
         hash_negative_prompt = hash(negative_prompt)
+        print(hash_prompt, hash_negative_prompt)
         base_img_path = f'{start_prompt}_{hash_prompt}_{hash_negative_prompt}_{iteration}.png'
         res_img_name = os.path.join(model_dir_name, base_img_path)
         image.save(res_img_name, pnginfo=pnginfo)
