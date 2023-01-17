@@ -34,14 +34,14 @@ def process_files_get_prompts(files_or_globs):
     return res_all_prompts
 
 
-def process_one_request(iteration, model_dir_name, prompt, negative_prompt):
+def process_one_request(iteration, model_dir_name, prompt, negative_prompt, img_width, img_height):
     payload = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
         "steps": 20,
         "seed": -1,
-        "width": 512,
-        "height": 768,
+        "width": img_width,
+        "height": img_height,
         "cfg_scale": 7
     }
 
@@ -68,10 +68,10 @@ def process_one_request(iteration, model_dir_name, prompt, negative_prompt):
         image.save(res_img_name, pnginfo=pnginfo)
 
 
-def process_requests(model_dir_name, prompt, negative_prompt, repetitions):
+def process_requests(model_dir_name, prompt, negative_prompt, repetitions, img_width, img_height):
     for i in range(0, repetitions):
         print(i)
-        process_one_request(i, model_dir_name, prompt, negative_prompt)
+        process_one_request(i, model_dir_name, prompt, negative_prompt, img_width, img_height)
 
 
 def start():
@@ -80,6 +80,8 @@ def start():
         all_models = obj['models']
         all_prompts = process_files_get_prompts(obj['files_with_prompts'])
         all_negative_prompts = process_files_get_prompts(obj['negative_prompts'])
+        img_height = obj['height']
+        img_width = obj['width']
         repetitions = obj['repetitions']
         print(all_models)
         print(all_prompts)
@@ -106,7 +108,7 @@ def start():
             for negative_prompt in all_negative_prompts:
                 print(prompt)
                 print(negative_prompt)
-                process_requests(model_dir_name, prompt, negative_prompt, repetitions)
+                process_requests(model_dir_name, prompt, negative_prompt, repetitions, img_width, img_height)
 
 
 start()

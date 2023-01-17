@@ -1,16 +1,16 @@
 {
   "files_with_prompts":
   [
-    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/prompts1.txt"
+    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/prompts_plants.txt"
   ],
   "negative_prompts":
   [
-    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/neg-prompts.txt"
+    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/neg-prompts-watercolor.txt"
   ],
   "models":
   [
-    "hassanblend1512And_hassanblend1512.ckpt [49686d33]",
     "hasdx_hasedsdx.ckpt [d2ef38d0]",
+    "hassanblend1512And_hassanblend1512.ckpt [49686d33]",
     "realeldenapocalypse_realeldenapocalypse.ckpt [61a1d4a8]",
     "hAs3DKX11_3dkx11.ckpt [a73b3094]",
     "kaelvinsmixhc_alpha021.ckpt [22577568]",
@@ -26,5 +26,7 @@
     "sd-v1-5-inpainting.ckpt [3e16efc8]",
     "mdjrny-pntrt.ckpt [83295fd6]"
   ],
-  "repetitions": 2
+  "repetitions": 1,
+  "height": 512,
+  "width": 512
 }

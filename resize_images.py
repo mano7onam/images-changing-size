@@ -7,8 +7,8 @@ Image.MAX_IMAGE_PIXELS = 933120000
 DESIRED_SIZE_W = 512
 DESIRED_SIZE_H = 512
 
-DIR_WITH_IMAGES = '/Users/andrey.matveev/aspire/IMGS/FROM_INST'
-OUTPUT_DIR = '/Users/andrey.matveev/aspire/IMGS/FROM_INST_512_512'
+DIR_WITH_IMAGES = '/Users/andrey.matveev/Downloads/plants'
+OUTPUT_DIR = '/Users/andrey.matveev/Downloads/plants_512_512'
 if not os.path.isdir(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
