@@ -7,6 +7,8 @@ import io
 import base64
 from PIL import Image, PngImagePlugin
 
+from helpers import get_model_dir_name
+
 URL = "http://127.0.0.1:7860"
 
 
@@ -92,8 +94,7 @@ def start():
 
     for model in all_models:
         print(model)
-        model_dir_name = model.replace(' ', '_')
-        model_dir_name = model_dir_name.replace('.', '_')
+        model_dir_name = get_model_dir_name(model)
         if not os.path.isdir(model_dir_name):
             os.makedirs(model_dir_name)
         option_payload = {
