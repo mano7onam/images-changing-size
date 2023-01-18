@@ -1,7 +1,7 @@
 {
   "files_with_prompts":
   [
-    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/prompts_plants.txt"
+    "/Users/andrey.matveev/PycharmProjects/ImgCenterPaste/prompts_plants_valentines.txt"
   ],
   "negative_prompts":
   [
@@ -9,6 +9,11 @@
   ],
   "models":
   [
+    "darkfruitMix_darkfruitMix.ckpt [27aef13f]",
+    "gta5ArtworkDiffusion_v1.ckpt [0655784d]",
+    "lotusbubbleart_v1.ckpt [5e2f08a1]",
+    "vanGoghDiffusion_v1.ckpt [caea14ad]",
+    "dreamshaper_33.ckpt [42e8c85d]",
     "hasdx_hasedsdx.ckpt [d2ef38d0]",
     "hassanblend1512And_hassanblend1512.ckpt [49686d33]",
     "realeldenapocalypse_realeldenapocalypse.ckpt [61a1d4a8]",

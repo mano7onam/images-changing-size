@@ -1,7 +1,7 @@
 import glob
 
-PROMPTS_SOURCE = 'glob::::/Users/andrey.matveev/Downloads/plants_512_512_PP/*.txt'
-PROMPTS_FILE_OUT = 'prompts_plants.txt'
+PROMPTS_SOURCE = 'glob::::/Users/andrey.matveev/Downloads/twinkl_2_512_512_PP/*.txt'
+PROMPTS_FILE_OUT = 'prompts_plants_valentines.txt'
 
 
 def process_files_get_prompts(files_or_globs):
